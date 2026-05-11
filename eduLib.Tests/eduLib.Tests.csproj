@@ -9,6 +9,14 @@
 
   <ItemGroup>
     <PackageReference Include="MSTest" Version="4.0.2" />
+    <PackageReference Include="MSTest.TestAdapter" Version="4.2.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eduLib.Application\eduLib.Application.csproj" />
+    <ProjectReference Include="..\eduLib.Core\eduLib.Core.csproj" />
+    <ProjectReference Include="..\eduLib.Infrastructure\eduLib.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
