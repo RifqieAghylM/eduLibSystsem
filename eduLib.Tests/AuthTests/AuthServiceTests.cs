@@ -105,5 +105,29 @@ namespace eduLib.Tests.AuthTests
                 // Assert sukses! Defensive programming (DbC) bekerja dengan baik.
             }
         }
+
+        // PERFORMANCE TESTING (Sesuai Syarat CLO 2)
+        [TestMethod]
+        public void LoginAndGetMenus_PerformanceTest_ExecutesUnder100Milliseconds()
+        {
+            // Arrange
+            var stopwatch = new System.Diagnostics.Stopwatch();
+
+            // Lakukan pemanasan (warm-up) agar memori siap
+            _authService.Login("azka_admin", "123");
+            _authService.Logout();
+
+            // Act: Mulai hitung waktu performa
+            stopwatch.Start();
+
+            var user = _authService.Login("azka_admin", "123");
+            var menus = _authService.GetUserMenus(user);
+
+            stopwatch.Stop();
+
+            // Assert: Memastikan eksekusi Login + Table-Driven Menu sangat cepat (di bawah 100ms)
+            // Ini jauh memenuhi standar NFR-02 (< 2 detik)
+            Assert.IsTrue(stopwatch.ElapsedMilliseconds < 100, $"Performa terlalu lambat! Waktu eksekusi: {stopwatch.ElapsedMilliseconds} ms");
+        }
     }
 }
